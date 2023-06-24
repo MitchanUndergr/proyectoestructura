@@ -1,60 +1,81 @@
 #include "Quad.h"
 #include <chrono>
+#include <fstream>
+#include <iostream>
 #include <random>
+#include <sstream>
 #include <vector>
 
 int main() {
-    Point topLeft(-120.0, -120.0);
-    Point botRight(120.0, 120.0);
+    std::vector<double> tiempos;
 
-    Quad quadtree(topLeft, botRight);
+    for (int k = 0; k < 20; ++k) {
+        Point topLeft(-120.0, -120.0);
+        Point botRight(120.0, 120.0);
 
-    ifstream inputFile("C:/Users/user/Downloads/ESTRUCTURA/experimental/dat100000.txt");
-    string line;
+        Quad quadtree(topLeft, botRight);
 
-    vector<Node*> nodos;
+        std::ifstream inputFile("C:/Users/user/Downloads/ESTRUCTURA/experimental/dat100000.txt");
+        std::string line;
 
-    while (getline(inputFile, line)) {
-        stringstream ss(line);
+        std::vector<Node*> nodos;
 
-        string poblacionStr, latitudeStr, longitudStr;
-        getline(ss, poblacionStr, ';');    // leer como cadena
-        getline(ss, latitudeStr, ';');
-        getline(ss, longitudStr, ';');
+        while (std::getline(inputFile, line)) {
+            std::stringstream ss(line);
 
-        int poblacion = stoi(poblacionStr);
-        size_t commaPos1 = latitudeStr.find(',');
-        if (commaPos1 != string::npos) {
-            latitudeStr[commaPos1] = '.';
+            std::string poblacionStr, latitudeStr, longitudStr;
+            std::getline(ss, poblacionStr, ';');    // leer como cadena
+            std::getline(ss, latitudeStr, ';');
+            std::getline(ss, longitudStr, ';');
+
+            int poblacion = std::stoi(poblacionStr);
+            size_t commaPos1 = latitudeStr.find(',');
+            if (commaPos1 != std::string::npos) {
+                latitudeStr[commaPos1] = '.';
+            }
+            double latitud = std::stod(latitudeStr);
+
+            size_t commaPos2 = longitudStr.find(',');
+            if (commaPos2 != std::string::npos) {
+                longitudStr[commaPos2] = '.';
+            }
+            double longitud = std::stod(longitudStr);
+
+            Point point(latitud, longitud);
+            Node* nuevoNode = new Node(point, poblacion);
+
+            nodos.push_back(nuevoNode);
         }
-        double latitud = stod(latitudeStr);
 
-        size_t commaPos2 = longitudStr.find(',');
-        if (commaPos2 != string::npos) {
-            longitudStr[commaPos2] = '.';
+        std::cout << "Tiempo de ejecucion insert() 100000 (iteracion " << (k + 1) << "):" << std::endl;
+        auto start1 = std::chrono::system_clock::now();
+
+        for (int i = 0; i < nodos.size(); ++i) {
+            quadtree.insert(nodos[i]);
         }
-        double longitud = stod(longitudStr);
 
-        Point point(latitud, longitud);
-        Node* nuevoNode = new Node(point, poblacion);
+        auto end1 = std::chrono::system_clock::now();
+        std::chrono::duration<double, std::milli> duration = end1 - start1;
+        double tiempo = duration.count();
+        std::cout << tiempo << "ms" << std::endl;
 
-        nodos.push_back(nuevoNode);
+        tiempos.push_back(tiempo);
+
+        for (const auto& nodo : nodos) {
+            delete nodo;
+        }
     }
 
-    cout<<"tiempo ejecucion insert() 100000 datos"<<endl;
-    auto start1=chrono::system_clock::now();
-
-    for (int i=0; i<nodos.size();i++) {
-        quadtree.insert(nodos[i]);
-    }
-    auto end1=chrono::system_clock::now();
-    chrono::duration<float,milli> duration=end1-start1;
-    cout<<duration.count()<<"ms"<<endl;
-
-    for (const auto& nodo : nodos) {
-        delete nodo;
+    std::ofstream outputFile("tiempo100000.txt");
+    if (outputFile.is_open()) {
+        for (int i = 0; i < tiempos.size(); ++i) {
+            outputFile << "Iteración " << (i + 1) << ": " << tiempos[i] << "ms" << std::endl;
+        }
+        outputFile.close();
+        std::cout << "Los tiempos se han guardado en el archivo tiempo100000.txt" << std::endl;
+    } else {
+        std::cout << "No se pudo abrir el archivo tiempos.txt" << std::endl;
     }
 
     return 0;
 }
-
