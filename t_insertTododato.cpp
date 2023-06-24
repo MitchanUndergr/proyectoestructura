@@ -57,7 +57,7 @@ int main() {
         auto end1 = std::chrono::system_clock::now();
         std::chrono::duration<double, std::milli> duration = end1 - start1;
         double tiempo = duration.count();
-        std::cout << tiempo << "ms" << std::endl;
+        cout << tiempo << "ms" << endl;
 
         tiempos.push_back(tiempo);
 
@@ -69,12 +69,12 @@ int main() {
     std::ofstream outputFile("tiempos.txt");
     if (outputFile.is_open()) {
         for (int i = 0; i < tiempos.size(); ++i) {
-            outputFile << "Iteración " << (i + 1) << ": " << tiempos[i] << "ms" << std::endl;
+            outputFile << tiempos[i] << endl;
         }
         outputFile.close();
-        std::cout << "Los tiempos se han guardado en el archivo tiempos.txt" << std::endl;
+        cout << "Los tiempos se han guardado en el archivo tiempos.txt" << endl;
     } else {
-        std::cout << "No se pudo abrir el archivo tiempos.txt" << std::endl;
+        cout << "No se pudo abrir el archivo tiempos.txt" << endl;
     }
 
     return 0;
