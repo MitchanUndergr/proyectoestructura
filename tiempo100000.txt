@@ -1,20 +1,20 @@
-Iteración 1: 39.5078ms
-Iteración 2: 39.5993ms
-Iteración 3: 39.2065ms
-Iteración 4: 38.2098ms
-Iteración 5: 40.3212ms
-Iteración 6: 39.1705ms
-Iteración 7: 38.5614ms
-Iteración 8: 38.4253ms
-Iteración 9: 38.4292ms
-Iteración 10: 38.9578ms
-Iteración 11: 37.9887ms
-Iteración 12: 38.1601ms
-Iteración 13: 39.058ms
-Iteración 14: 38.9563ms
-Iteración 15: 39.3636ms
-Iteración 16: 38.1502ms
-Iteración 17: 38.2502ms
-Iteración 18: 38.6829ms
-Iteración 19: 39.0379ms
-Iteración 20: 38.5391ms
+41.2344
+39.3661
+38.9165
+39.6872
+38.8042
+39.2758
+39.3867
+38.7783
+38.119
+41.5496
+38.6269
+44.7287
+39.548
+40.1264
+43.4623
+45.1562
+44.9066
+47.2664
+41.4953
+40.1146
