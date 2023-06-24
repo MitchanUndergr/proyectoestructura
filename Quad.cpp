@@ -8,7 +8,7 @@ int main()
     Quad center(topLeft, botRight);
 
 
-    ifstream inputFile("C:/Users/user/Downloads/ESTRUCTURA/proyecto/datos.txt");
+    ifstream inputFile("C:/Users/user/Downloads/ESTRUCTURA/proyecto/datos20.txt");
     string line;
 
     while (getline(inputFile, line)) {
