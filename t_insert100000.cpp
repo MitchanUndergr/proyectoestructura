@@ -69,12 +69,12 @@ int main() {
     std::ofstream outputFile("tiempo100000.txt");
     if (outputFile.is_open()) {
         for (int i = 0; i < tiempos.size(); ++i) {
-            outputFile << "Iteración " << (i + 1) << ": " << tiempos[i] << "ms" << std::endl;
+            outputFile <<tiempos[i] << endl;
         }
         outputFile.close();
-        std::cout << "Los tiempos se han guardado en el archivo tiempo100000.txt" << std::endl;
+        std::cout << "Los tiempos se han guardado en el archivo tiempo100000.txt" << endl;
     } else {
-        std::cout << "No se pudo abrir el archivo tiempos.txt" << std::endl;
+        std::cout << "No se pudo abrir el archivo tiempos.txt" << endl;
     }
 
     return 0;
